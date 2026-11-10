@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>수출 제안서 검토기</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div>
+    <div class="eyebrow">Export proposal desk · 5-point auto review</div>
+    <h1>수출 제안서 검토기</h1>
+    <p>단계를 눌러 입력하면 오른쪽에서 5가지 주의사항을 바로 검토하고, 아래에 산출물이 만들어집니다.</p>
+  </div>
+  <div class="presets"><span>예시 불러오기</span>
+    <button type="button" data-preset="us">미국 · 화장품</button>
+    <button type="button" data-preset="sa">사우디 · 식품</button>
+    <button type="button" data-preset="cn">중국 · 전자제품</button>
+    <button type="button" id="clearAll">새로 작성</button>
+  </div>
+</header>
+
+<div class="grid">
+<form class="form" id="form" autocomplete="off" onsubmit="return false">
+
+<details class="step" data-step="1" open><summary><span class="no">01</span><span class="st">우리 회사와 제품</span><span class="pv" id="pv1"></span><span class="sc" id="sc1"></span><span class="chev" aria-hidden="true">›</span></summary><div class="body"><fieldset>
+  <div class="row">
+    <label class="f">판매사명 (영문)<input type="text" id="seller"></label>
+    <label class="f">발신자 이름<input type="text" id="sender"></label>
+    <label class="f">발신자 직함 (영문)<input type="text" id="senderTitle"></label>
+  </div>
+  <div class="row">
+    <label class="f">제품명 (영문)<input type="text" id="product"></label>
+    <label class="f">품목 분류<select id="category">
+      <option value="food">식품·음료</option><option value="cosmetics">화장품</option><option value="medical">의료기기</option>
+      <option value="electronics">전기·전자제품</option><option value="machinery">산업기계</option><option value="textiles">섬유·의류</option><option value="other">기타</option></select></label>
+    <label class="f">HS 코드<input type="text" id="hs" placeholder="예: 3304.99"></label>
+  </div>
+  <div class="row">
+    <label class="f wide">주요 원재료·성분 (영문, 쉼표로 구분)<input type="text" id="ingredients" placeholder="예: zinc oxide, glycerin, gelatin"></label>
+  </div>
+  <div class="row" style="margin-top:10px"><label class="c"><input type="checkbox" id="fictional"> 가상 시나리오입니다 (모든 산출물에 "Fictional scenario" 표기)</label></div>
+</fieldset><div class="nav"><button type="button" data-next="2">다음 단계 ›</button></div></div></details>
+
+<details class="step" data-step="2"><summary><span class="no">02</span><span class="st">바이어</span><span class="pv" id="pv2"></span><span class="sc" id="sc2"></span><span class="chev" aria-hidden="true">›</span></summary><div class="body"><fieldset>
+  <div class="row">
+    <label class="f">바이어 국가<select id="country"></select></label>
+    <label class="f">바이어 유형<select id="buyerType">
+      <option value="distributor">수입 유통사</option><option value="retailer">소매 체인</option><option value="oem">OEM·브랜드사</option><option value="ecommerce">온라인 셀러</option><option value="enduser">최종 사용자(기업)</option></select></label>
+    <label class="f">바이어사명 (영문)<input type="text" id="buyer"></label>
+    <label class="f">담당자 (예: Ms. Jane Park)<input type="text" id="contact"></label>
+  </div>
+</fieldset><div class="nav"><button type="button" data-next="3">다음 단계 ›</button></div></div></details>
+
+<details class="step" data-step="3"><summary><span class="no">03</span><span class="st">바이어가 읽을 영문 메시지</span><span class="pv" id="pv3"></span><span class="sc" id="sc3"></span><span class="chev" aria-hidden="true">›</span></summary><div class="body"><fieldset>
+  <div class="tipline"><span class="tip" tabindex="0"><span class="q">?</span>설명<span class="tipbox">여기 쓴 문장이 덱과 이메일에 그대로 들어가고, 수동태·전문용어·콩글리시·모호한 표현·자랑 비중을 검사합니다.</span></span></div>
+  <div class="row">
+    <label class="f wide">바이어가 겪는 문제 (Pain point)<textarea id="pain"></textarea></label>
+    <label class="f wide">우리 제품이 해결하는 방식 (Solution)<textarea id="solution"></textarea></label>
+    <label class="f wide">수치로 말하는 가치 (Value, 숫자·% 포함)<textarea id="value" style="min-height:56px"></textarea></label>
+    <label class="f wide">회사 소개 (짧게)<textarea id="intro" style="min-height:56px"></textarea></label>
+  </div>
+</fieldset><div class="nav"><button type="button" data-next="4">다음 단계 ›</button></div></div></details>
+
+<details class="step" data-step="4"><summary><span class="no">04</span><span class="st">ROI 계산 근거</span><span class="pv" id="pv4"></span><span class="sc" id="sc4"></span><span class="chev" aria-hidden="true">›</span></summary><div class="body"><fieldset>
+  <div class="tipline"><span class="tip" tabindex="0"><span class="q">?</span>설명<span class="tipbox" id="extraHint">바이어가 지금 쓰는 제품 단가와 바이어 쪽 추가 비용을 넣으면 절감액을 계산하고, 메시지에 쓴 %와 맞는지 대조합니다.</span></span></div>
+  <div class="row">
+    <label class="f">바이어 현재 단가 (같은 통화)<input type="number" id="benchCost" step="0.01" min="0"></label>
+    <label class="f">바이어 측 부대비용 / 개<input type="number" id="extraCost" step="0.01" min="0"></label>
+    <label class="f">연간 예상 물량 (개)<input type="number" id="annualQty" step="1" min="0"></label>
+  </div>
+  <div style="margin-top:12px;font-size:12px;font-weight:600;color:var(--muted)">출처 (수치·시장 주장마다 한 줄)</div>
+  <div id="evList" style="margin-top:6px"></div>
+  <button type="button" id="addEv">+ 출처 추가</button>
+</fieldset><div class="nav"><button type="button" data-next="5">다음 단계 ›</button></div></div></details>
+
+<details class="step" data-step="5"><summary><span class="no">05</span><span class="st">가격·인도·결제 조건</span><span class="pv" id="pv5"></span><span class="sc" id="sc5"></span><span class="chev" aria-hidden="true">›</span></summary><div class="body"><fieldset>
+  <div class="row">
+    <label class="f">단가<input type="number" id="price" step="0.01" min="0"></label>
+    <label class="f">통화 (ISO)<select id="currency"><option>USD</option><option>EUR</option><option>GBP</option><option>JPY</option><option>CNY</option><option>SAR</option><option>AED</option><option>AUD</option><option>CAD</option><option>KRW</option></select></label>
+    <label class="f">단위<input type="text" id="unit" placeholder="unit, carton, set"></label>
+    <label class="f">MOQ<input type="number" id="moq" step="1" min="0"></label>
+  </div>
+  <div class="row">
+    <label class="f">인코텀즈 2020<select id="incoterm"><option value="">선택</option>
+      <option>EXW</option><option>FCA</option><option>CPT</option><option>CIP</option><option>DAP</option><option>DPU</option><option>DDP</option><option>FAS</option><option>FOB</option><option>CFR</option><option>CIF</option></select></label>
+    <label class="f">지정 장소 (항구·주소까지)<input type="text" id="place" placeholder="예: Busan New Port, Korea"></label>
+    <label class="f">운송 수단<select id="mode"><option value="container">해상 컨테이너</option><option value="bulk">해상 벌크</option><option value="air">항공</option><option value="road">육상</option><option value="multi">복합운송</option></select></label>
+  </div>
+  <div class="row">
+    <label class="f">결제 방식<select id="payMethod">
+      <option value="tt_split">T/T 분할 (선금+잔금)</option><option value="tt_adv">T/T 100% 선불</option><option value="lc_sight">L/C 일람불</option><option value="lc_usance">L/C 기한부</option>
+      <option value="dp">D/P</option><option value="da">D/A</option><option value="oa">외상 (Open account)</option></select></label>
+    <label class="f" id="depWrap">선금 % (잔금은 자동)<input type="number" id="dep" min="0" max="100" step="5"></label>
+    <label class="f" id="balWrap">잔금 시점<select id="balTiming"><option value="before shipment">선적 전</option><option value="against copy of B/L">B/L 사본 수령 시</option><option value="within 30 days of B/L date">B/L일 후 30일 내</option></select></label>
+    <label class="f" id="daysWrap">기한 (일)<input type="number" id="days" min="0" step="15"></label>
+  </div>
+  <div class="row" id="lcRow"><label class="c"><input type="checkbox" id="lcConfirmed"> 확인 신용장 (confirmed L/C) 요구</label></div>
+  <div class="row">
+    <label class="f">생산·선적 리드타임 (일)<input type="number" id="lead" min="0"></label>
+    <label class="f">견적 유효기간<input type="date" id="validity"></label>
+    <label class="f">기준 환율 (KRW / 1 통화)<input type="number" id="fxRate" step="0.1" min="0"></label>
+    <label class="f">가격 재협의 환율 변동폭 (±%)<input type="number" id="fxBand" step="0.5" min="0"></label>
+  </div>
+  <div class="row" style="margin-top:10px"><label class="c"><input type="checkbox" id="fxOn"> 환율 변동 조항을 넣습니다</label></div>
+</fieldset><div class="nav"><button type="button" data-next="6">다음 단계 ›</button></div></div></details>
+
+<details class="step" data-step="6"><summary><span class="no">06</span><span class="st">일정</span><span class="pv" id="pv6"></span><span class="sc" id="sc6"></span><span class="chev" aria-hidden="true">›</span></summary><div class="body"><fieldset>
+  <div class="row">
+    <label class="f">미팅·통화 제안일<input type="date" id="meeting"></label>
+    <label class="f">첫 선적 예정일<input type="date" id="shipDate"></label>
+  </div>
+</fieldset><div class="nav"><button type="button" data-next="7">다음 단계 ›</button></div></div></details>
+
+<details class="step" data-step="7"><summary><span class="no">07</span><span class="st">인증·준거법·면책</span><span class="pv" id="pv7"></span><span class="sc" id="sc7"></span><span class="chev" aria-hidden="true">›</span></summary><div class="body"><fieldset>
+  <div class="tipline"><span class="tip" tabindex="0"><span class="q">?</span>설명<span class="tipbox" id="certHint">바이어 국가와 품목에 맞는 대표 인증·등록 목록입니다. 보유 상태를 고르세요. 미보유 항목은 제안서에서 "판매 가능"으로 표현하지 않습니다.</span></span></div>
+  <div class="certs" id="certList"></div>
+  <div class="row" style="margin-top:12px">
+    <label class="f">준거법<select id="law"><option value="">미정</option><option value="Republic of Korea">대한민국법</option><option value="buyer">바이어 국가법</option><option value="England and Wales">영국법</option><option value="Singapore">싱가포르법</option></select></label>
+    <label class="f">분쟁 해결 (중재)<select id="venue"><option value="">미정</option><option value="KCAB">대한상사중재원 (서울)</option><option value="SIAC">SIAC (싱가포르)</option><option value="ICC">ICC 중재</option><option value="HKIAC">HKIAC (홍콩)</option><option value="LCIA">LCIA (런던)</option><option value="court">바이어 국가 법원</option></select></label>
+  </div>
+  <div class="row" style="margin-top:10px"><label class="c"><input type="checkbox" id="disclaimer"> 가격·일정 변동 가능 면책 문구를 넣습니다</label></div>
+</fieldset><div class="nav"><button type="button" data-next="8">다음 단계 ›</button></div></div></details>
+
+<details class="step" data-step="8"><summary><span class="no">08</span><span class="st">디자인과 감수</span><span class="pv" id="pv8"></span><span class="sc" id="sc8"></span><span class="chev" aria-hidden="true">›</span></summary><div class="body"><fieldset>
+  <div class="row">
+    <label class="f">브랜드 주색<input type="color" id="c1"></label>
+    <label class="f">브랜드 보조색<input type="color" id="c2"></label>
+    <label class="f">덱 배경<select id="theme"><option value="light">밝은 배경</option><option value="dark">어두운 배경</option></select></label>
+  </div>
+  <div class="row" style="margin-top:12px">
+    <label class="c"><input type="checkbox" id="nativeDone"> 원어민 또는 전문 교정자가 최종 영문을 감수했습니다</label>
+    <label class="f">감수자<input type="text" id="reviewer" placeholder="이름·소속"></label>
+  </div>
+</fieldset><div class="nav"><button type="button" data-jump="out">산출물 보기 ↓</button></div></div></details>
+</form>
+
+<aside class="panel" aria-live="polite">
+  <div class="stamp" id="stamp"></div>
+  <div id="cats"></div>
+</aside>
+</div>
+
+<section class="outputs">
+  <div class="outhead" id="out-anchor"><h2>산출물</h2><span class="order" id="orderNote" style="margin:0"></span></div>
+  <div class="tabs" role="tablist" id="tabs">
+    <button type="button" role="tab" data-tab="deck" aria-selected="true">제안서 덱</button>
+    <button type="button" role="tab" data-tab="offer" aria-selected="false">오퍼시트</button>
+    <button type="button" role="tab" data-tab="appendix" aria-selected="false">근거 부록</button>
+    <button type="button" role="tab" data-tab="email" aria-selected="false">영문 커버 이메일</button>
+    <button type="button" role="tab" data-tab="report" aria-selected="false">검토 보고서</button>
+  </div>
+  <div class="toolbar"><button type="button" id="copyBtn" class="primary">이 산출물 복사</button><span class="tip" tabindex="0"><span class="q">?</span><span class="tipbox" style="left:0;right:auto">복사한 내용에도 미해결 경고 문구가 함께 들어갑니다.</span></span></div>
+  <div id="out"></div>
+</section>
+
+<details class="note"><summary>데이터 기준과 한계</summary><p>규칙은 2026년 11월 기준의 일반 가이드입니다. 인증·규제 목록은 대표 항목이며 품목·HS코드에 따라 달라지므로 KOTRA 무역관, 인증기관, 현지 관세사로 최종 확인하세요. 이슬람 명절 날짜는 달 관측에 따라 1~2일 달라질 수 있습니다. 입력값은 이 브라우저에만 저장됩니다.</p></details>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
